@@ -4,6 +4,7 @@
 
 #include "arg_parser.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 struct arg_t* AP_new(int tokc, char *tokv[]) {
 
@@ -46,11 +47,6 @@ struct arg_t* AP_new(int tokc, char *tokv[]) {
 
 	}
 
-	size_t i = 0;
-	AP_FOREACH(cur, head) {
-		cur->elmt = i++;
-	}
-
 	return(head); // use AP_free();
 }
 
@@ -64,8 +60,10 @@ void AP_free(struct arg_t *head) {
 }
 
 struct arg_t* AP_get(size_t element, struct arg_t *head) {
+	size_t i = 0;
 	AP_FOREACH(cur, head) {
-		if(cur->elmt == element) return cur;
+		if(i == element) return cur;
+		i++;
 	}
 	return NULL;
 }

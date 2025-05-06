@@ -8,7 +8,6 @@
 struct arg_t{
 
 	char *arg;
-	size_t elmt;
 	struct arg_t *next;
 
 	int flagc;
