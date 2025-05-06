@@ -4,19 +4,17 @@
 
 int main (int argc, char *argv[]){
 
-	struct arg_t *head_args = AP_new(argc, argv);
-	struct arg_t *iter_args = head_args;
+	struct arg_t *args_head = AP_new(argc, argv);
 
-	int i = 0;
-	while(iter_args) {
-		printf("arg %d: %s\n", i++, iter_args->arg);
-		for (int j = 0; j < iter_args->flagc; j++) {
-			printf("  flag %d, %s\n", j, iter_args->flagv[j]);
+	AP_FOREACH(cur, args_head) {
+		printf("arg: %s\n", cur->arg);
+		for (int i = 0; i < cur->flagc; i++) {
+			printf("  flag: %s\n", cur->flagv[i]);
 		}
-		iter_args = iter_args->next;
+
 	}
 
-	AP_free(head_args);
+	AP_free(args_head);
 
 	  exit(EXIT_SUCCESS);
 }
