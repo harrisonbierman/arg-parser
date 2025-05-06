@@ -1,18 +1,17 @@
 #ifndef ARG_PARSER_H
 #define ARG_PARSER_H
 
-typedef struct arg {
+
+struct arg_t{
+
 	char *arg;
-	int optc;
-	char **opt;
+	struct arg_t *next;
 
-}arg_t;
+	int flagc;
+	char *flagv[512];
 
-struct arg_parse_t {
-	int argc;
-	arg_t **argv;
 };
 
-struct arg_parse_t AP_new(int argc, char *argv[]);
+struct arg_t* AP_new(int tokc, char *tokv[]);
 
 #endif

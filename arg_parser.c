@@ -5,41 +5,42 @@
 #include "arg_parser.h"
 #include <stdlib.h>
 
-struct arg_parse_t AP_new(int tokc, char *tokv[]) {
+struct arg_t* AP_new(int tokc, char *tokv[]) {
 	
-	struct arg_parse_t ap;
-	ap.argc = 0;
 
-	int n_args = 0;
+	struct arg_t *p_ap_head = malloc(sizeof(struct arg_t));
+
+	struct arg_t *p_ap = p_ap_head;
+
+	int first_pass = 1;
+
 	// each argument
-	for (int i = 0; i < tokc; ++i) {
-		
-		arg_t a;
+	for (int i = 0; i < tokc; i++) {
+
+		if (!first_pass) {
+			struct arg_t *p_ap_next = malloc(sizeof(struct arg_t));
+
+			p_ap->next = p_ap_next;
+
+			p_ap = p_ap_next;
+		}
+
+		first_pass = 0;
 
 		// if token is not option 
 		if (tokv[i][0] != '-') {
-			a.arg = tokv[i];
+			p_ap->arg = tokv[i];	
 		} else {
-			a.optc = 0;
-			while (tokv[i][0] == '-') {
+			int j = 0;
+			while (tokv[i] != NULL && tokv[i][0] == '-') {;
+				p_ap->flagv[j] = tokv[i];
 				i++;
-				a.optc++;
-			}
-			a.opt = malloc(a.optc * sizeof(a.opt));
-			i = i - a.optc;
-			for (int j = 0; j < a.optc; j++) {
-				a.opt[j] = tokv[i];
+				j++;
 			}
 		}
-
-
-		ap.argv[ap.argc] = malloc(sizeof(arg_t));
-		ap.argv[ap.argc] = &a;
-		ap.argc++;
-
 	}
 
-	return(ap);
+	return(p_ap_head);
 }
 
 
@@ -48,7 +49,7 @@ struct arg_parse_t AP_new(int tokc, char *tokv[]) {
  *
  * API functions I want 
  *
- * struct arg_parse_t ap = AP_new(argc, &argv);
+ * struct arg_t ap = AP_new(argc, &argv);
  *
  *
  *
