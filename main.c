@@ -15,7 +15,15 @@ int main (int argc, char *argv[]){
 		ap = ap->next;
 	}
 
+	AP_free(ap);
 
+	while(ap) {
+		printf("arg %d: %s\n", i++, ap->arg);
+		for (int j = 0; j < ap->flagc; j++) {
+			printf("  flag %d, %s\n", j, ap->flagv[j]);
+		}
+		ap = ap->next;
+	}
 	  exit(EXIT_SUCCESS);
 }
 

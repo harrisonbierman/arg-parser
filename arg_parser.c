@@ -48,6 +48,13 @@ struct arg_t* AP_new(int tokc, char *tokv[]) {
 	return(head); // use AP_free();
 }
 
+void AP_free(struct arg_t *ap) {
+	while(ap){
+		struct arg_t *next = ap->next;
+		free(ap);
+		ap = next;
+	}
+}
 
 /**
  * notes:

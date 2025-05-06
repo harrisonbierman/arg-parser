@@ -15,4 +15,6 @@ struct arg_t{
 
 struct arg_t* AP_new(int tokc, char *tokv[]); // use AP_free()
 
+void AP_free(struct arg_t *a);
+
 #endif
