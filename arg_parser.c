@@ -13,7 +13,7 @@ struct arg_t* AP_new(int tokc, char *tokv[]) {
 	struct arg_t *head = NULL, *tail = NULL;
 
 	// each argument
-	for (int i = 0; i < tokc; i++) {
+	for (int i = 0; i < tokc;) {
 
 		// calloc will zero out allocation 
 		struct arg_t *node = calloc(1, sizeof(struct arg_t));
@@ -25,6 +25,7 @@ struct arg_t* AP_new(int tokc, char *tokv[]) {
 
 		i++; // move to next token
 
+		// collect all flags after arg
 		int count = 0;
 		while (i < tokc && tokv[i][0] == '-' && count < MAX_FLAGS) {;
 			node->flagv[count++] = tokv[i++];
@@ -32,7 +33,6 @@ struct arg_t* AP_new(int tokc, char *tokv[]) {
 
 		node->flagc = count;  
 		node->flagv[count] = NULL;
-		i--; // move back a token
 
 		// better solution than I had last commit
 		if(!head) {
@@ -43,16 +43,18 @@ struct arg_t* AP_new(int tokc, char *tokv[]) {
 			tail->next = node;
 			tail = node;
 		}
+
 	}
 
 	return(head); // use AP_free();
 }
 
-void AP_free(struct arg_t *ap) {
-	while(ap){
-		struct arg_t *next = ap->next;
-		free(ap);
-		ap = next;
+void AP_free(struct arg_t *head) {
+	struct arg_t *cur = head;
+	while(cur){
+		struct arg_t *next = cur->next;
+		free(cur);
+		cur = next;
 	}
 }
 
