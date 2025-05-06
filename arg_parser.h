@@ -24,4 +24,6 @@ void AP_free(struct arg_t *a);
 // do not need to free pointer taken care of by AP_free
 struct arg_t* AP_get(size_t element, struct arg_t *head);
 
+int AP_has_flag(char *flag_short, char *flag_long, struct arg_t *arg);
+
 #endif

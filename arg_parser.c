@@ -5,6 +5,7 @@
 #include "arg_parser.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 struct arg_t* AP_new(int tokc, char *tokv[]) {
 
@@ -67,6 +68,19 @@ struct arg_t* AP_get(size_t element, struct arg_t *head) {
 	}
 	return NULL;
 }
+
+int AP_has_flag(char *flag_short, char *flag_long, struct arg_t *arg) {
+	for(int i = 0; i < arg->flagc; i++) {
+		if(!strcmp(arg->flagv[i], flag_short) || 
+		   !strcmp(arg->flagv[i], flag_long)) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
+	return 0;
+}
+
 
 /**
  * notes:
