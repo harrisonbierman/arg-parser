@@ -20,20 +20,19 @@ struct arg_t* AP_new(int tokc, char *tokv[]) {
 
 		node->next = NULL; // terminate by default
 
-		if (tokv[i][0] != '-') {
-			// regular argument
-			node->arg = tokv[i];	
+		// regular argument
+		node->arg = tokv[i];	
 
-			i++; // move to next token
-			// collect all consecutive flags up to MAX_FLAGS
-			int count = 0;
-			while (i < tokc && tokv[i][0] == '-' && count < MAX_FLAGS) {;
-				node->flagv[count++] = tokv[i++];
-			}
-			node->flagc = count;  
-			node->flagv[count] = NULL;
-			i--; // move back a token
+		i++; // move to next token
+
+		int count = 0;
+		while (i < tokc && tokv[i][0] == '-' && count < MAX_FLAGS) {;
+			node->flagv[count++] = tokv[i++];
 		}
+
+		node->flagc = count;  
+		node->flagv[count] = NULL;
+		i--; // move back a token
 
 		// better solution than I had last commit
 		if(!head) {
