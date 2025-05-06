@@ -6,41 +6,47 @@
 #include <stdlib.h>
 
 struct arg_t* AP_new(int tokc, char *tokv[]) {
-	
 
-	struct arg_t *p_ap_head = malloc(sizeof(struct arg_t));
-
-	struct arg_t *p_ap = p_ap_head;
-
-	int first_pass = 1;
+	// I need to remember that you can initiate
+	// pointers as NULL if you don't want to use
+	// them yet
+	struct arg_t *head = NULL, *tail = NULL;
 
 	// each argument
 	for (int i = 0; i < tokc; i++) {
 
-		if (!first_pass) {
-			struct arg_t *p_ap_next = malloc(sizeof(struct arg_t));
+		// calloc will zero out allocation 
+		struct arg_t *node = calloc(1, sizeof(struct arg_t));
 
-			p_ap->next = p_ap_next;
+		node->next = NULL; // terminate by default
 
-			p_ap = p_ap_next;
+		if (tokv[i][0] != '-') {
+			// regular argument
+			node->arg = tokv[i];	
+
+			i++; // move to next token
+			// collect all consecutive flags up to MAX_FLAGS
+			int count = 0;
+			while (i < tokc && tokv[i][0] == '-' && count < MAX_FLAGS) {;
+				node->flagv[count++] = tokv[i++];
+			}
+			node->flagc = count;  
+			node->flagv[count] = NULL;
+			i--; // move back a token
 		}
 
-		first_pass = 0;
-
-		// if token is not option 
-		if (tokv[i][0] != '-') {
-			p_ap->arg = tokv[i];	
+		// better solution than I had last commit
+		if(!head) {
+			// tail and head will be the same
+			// pointer of there is no other arguments
+			head = tail = node;
 		} else {
-			int j = 0;
-			while (tokv[i] != NULL && tokv[i][0] == '-') {;
-				p_ap->flagv[j] = tokv[i];
-				i++;
-				j++;
-			}
+			tail->next = node;
+			tail = node;
 		}
 	}
 
-	return(p_ap_head);
+	return(head); // use AP_free();
 }
 
 

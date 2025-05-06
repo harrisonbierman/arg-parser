@@ -6,8 +6,12 @@ int main (int argc, char *argv[]){
 
 	struct arg_t *ap = AP_new(argc, argv);
 
+	int i = 0;
 	while(ap) {
-		printf("arg: %s\n", ap->arg);
+		printf("arg %d: %s\n", i++, ap->arg);
+		for (int j = 0; j < ap->flagc; j++) {
+			printf("  flag %d, %s\n", j, ap->flagv[j]);
+		}
 		ap = ap->next;
 	}
 
