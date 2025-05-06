@@ -6,13 +6,11 @@ int main (int argc, char *argv[]){
 
 	struct arg_t *args_head = AP_new(argc, argv);
 
-	AP_FOREACH(cur, args_head) {
-		printf("arg: %s\n", cur->arg);
-		for (int i = 0; i < cur->flagc; i++) {
-			printf("  flag: %s\n", cur->flagv[i]);
-		}
+	struct arg_t *arg = AP_get(2, args_head);
+	struct arg_t *arg2 = AP_get(5, args_head);
 
-	}
+	printf("arg = %s\n", arg->arg);
+	printf("arg2 = %s\n", arg2->arg);
 
 	AP_free(args_head);
 

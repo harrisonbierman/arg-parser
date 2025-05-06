@@ -46,6 +46,11 @@ struct arg_t* AP_new(int tokc, char *tokv[]) {
 
 	}
 
+	size_t i = 0;
+	AP_FOREACH(cur, head) {
+		cur->elmt = i++;
+	}
+
 	return(head); // use AP_free();
 }
 
@@ -56,6 +61,13 @@ void AP_free(struct arg_t *head) {
 		free(cur);
 		cur = next;
 	}
+}
+
+struct arg_t* AP_get(size_t element, struct arg_t *head) {
+	AP_FOREACH(cur, head) {
+		if(cur->elmt == element) return cur;
+	}
+	return NULL;
 }
 
 /**
