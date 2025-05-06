@@ -16,7 +16,7 @@ int main (int argc, char *argv[]){
 	printf("arg = %s\n", arg->arg);
 	printf("arg2 = %s\n", arg2->arg);
 
-	if(AP_has_flag("-h", "--help", arg2)) {
+	if(AP_has_flag("-h", NULL, arg2)) {
 		printf("arg %s, has flag!\n", arg2->arg);
 	}
 
