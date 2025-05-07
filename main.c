@@ -4,7 +4,7 @@
 
 int main (int argc, char *argv[]){
 
-	struct arg_t *head = AP_out_head();
+	struct arg_t *head = NULL;
 	int rc = AP_parse(argc, argv, &head);
 	if(rc != 0) {
 		perror("Error: something when wrong");

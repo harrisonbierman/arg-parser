@@ -7,11 +7,6 @@
 #include <stdio.h>
 #include <string.h>
 
-struct arg_t* AP_out_head(){
-	struct arg_t *out_head = NULL;
-	return out_head;
-}
-
 int AP_parse(int tokc, char *tokv[], struct arg_t **out_head) {
 	int error = 0;
 
