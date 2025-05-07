@@ -62,7 +62,7 @@ void AP_free(struct arg_t *head) {
 	}
 }
 
-struct arg_t* AP_get(size_t element, struct arg_t *head) {
+struct arg_t* AP_get(struct arg_t *head, size_t element) {
 	size_t i = 0;
 	AP_FOREACH(curr, head) {
 		if(i == element) 
@@ -72,7 +72,7 @@ struct arg_t* AP_get(size_t element, struct arg_t *head) {
 	return NULL;
 }
 
-int AP_has_flag(char *flag_short, char *flag_long, struct arg_t *arg) {
+int AP_has_flag(struct arg_t *arg, char *flag_short, char *flag_long) {
 	for(int i = 0; i < arg->flagc; i++) {
 
 		if (flag_short != NULL) {

@@ -23,8 +23,8 @@ void AP_free(struct arg_t *a);
 	for (struct arg_t *node = (head); node != NULL; node = node->next)
 
 // do not need to free pointer taken care of by AP_free
-struct arg_t* AP_get(size_t element, struct arg_t *head);
+struct arg_t* AP_get(struct arg_t *head, size_t element);
 
-int AP_has_flag(char *flag_short, char *flag_long, struct arg_t *arg);
+int AP_has_flag(struct arg_t *arg, char *flag_short, char *flag_long);
 
 #endif
