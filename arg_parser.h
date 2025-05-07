@@ -1,6 +1,6 @@
 #ifndef ARG_PARSER_H
 #define ARG_PARSER_H
-#include <stdlib.h> //size_t
+#include <stdlib.h> // size_t
 
 
 #define MAX_FLAGS 16
@@ -14,7 +14,9 @@ struct arg_t{
 	char *flagv[MAX_FLAGS + 1]; // room for NULL terminate
 };
 
-struct arg_t* AP_parse(int tokc, char *tokv[]); // use AP_free()
+struct arg_t* AP_out_head();
+
+int AP_parse(int tokc, char *tokv[], struct arg_t **out_head); // use AP_free()
 
 void AP_free(struct arg_t *a);
 

@@ -7,7 +7,13 @@
 #include <stdio.h>
 #include <string.h>
 
-struct arg_t* AP_parse(int tokc, char *tokv[]) {
+struct arg_t* AP_out_head(){
+	struct arg_t *out_head = NULL;
+	return out_head;
+}
+
+int AP_parse(int tokc, char *tokv[], struct arg_t **out_head) {
+	int error = 0;
 
 	// I need to remember that you can initiate
 	// pointers as NULL if you don't want to use
@@ -48,7 +54,8 @@ struct arg_t* AP_parse(int tokc, char *tokv[]) {
 
 	}
 
-	return(head); // use AP_free();
+	*out_head = head;
+	return(error); // use AP_free();
 }
 
 void AP_free(struct arg_t *head) {
@@ -63,7 +70,8 @@ void AP_free(struct arg_t *head) {
 struct arg_t* AP_get(size_t element, struct arg_t *head) {
 	size_t i = 0;
 	AP_FOREACH(curr, head) {
-		if(i == element) return curr;
+		if(i == element) 
+			return curr;
 		i++;
 	}
 	return NULL;
