@@ -1,2 +1,3 @@
-/main
-/vg.log
+main
+vg.log
+libargparser.a
