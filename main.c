@@ -4,7 +4,7 @@
 
 int main (int argc, char *argv[]){
 
-	struct arg_t *args_head = AP_new(argc, argv);
+	struct arg_t *args_head = AP_parse(argc, argv);
 
 	struct arg_t *arg = AP_get(1, args_head);
 	if(arg == NULL) {

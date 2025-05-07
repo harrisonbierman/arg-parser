@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <string.h>
 
-struct arg_t* AP_new(int tokc, char *tokv[]) {
+struct arg_t* AP_parse(int tokc, char *tokv[]) {
 
 	// I need to remember that you can initiate
 	// pointers as NULL if you don't want to use

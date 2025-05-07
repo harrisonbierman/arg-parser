@@ -14,7 +14,7 @@ struct arg_t{
 	char *flagv[MAX_FLAGS + 1]; // room for NULL terminate
 };
 
-struct arg_t* AP_new(int tokc, char *tokv[]); // use AP_free()
+struct arg_t* AP_parse(int tokc, char *tokv[]); // use AP_free()
 
 void AP_free(struct arg_t *a);
 
