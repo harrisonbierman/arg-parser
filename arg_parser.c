@@ -73,22 +73,25 @@ struct arg_t* AP_get(struct arg_t *head, size_t element) {
 }
 
 int AP_has_flag(struct arg_t *arg, char *flag_short, char *flag_long) {
+
+	// if inside loop means arg has flags
 	for(int i = 0; i < arg->flagc; i++) {
 
-		if (flag_short != NULL) {
-			if(!strcmp(arg->flagv[i], flag_short)) {
-				return 1;
-			}
+		if (flag_short != NULL && !strcmp(arg->flagv[i], flag_short)) {
+			return 1;
 		}
 
-		if (flag_long != NULL) {
-			if(!strcmp(arg->flagv[i], flag_long)) {
-				return 1;
-			}
+		if (flag_long != NULL && !strcmp(arg->flagv[i], flag_long)) {
+			return 1;
+		}
+
+		if(flag_short == NULL && flag_long == NULL) {
+			return 1;
 		}
 
 		return 0;
 	}
+
 	return 0;
 }
 

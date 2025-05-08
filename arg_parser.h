@@ -17,7 +17,7 @@ struct arg_t{
 
 int AP_parse(int tokc, char *tokv[], struct arg_t **out_head); // use AP_free()
 
-void AP_free(struct arg_t *a);
+void AP_free(struct arg_t *head);
 
 #define AP_FOREACH(node, head) \
 	for (struct arg_t *node = (head); node != NULL; node = node->next)

@@ -11,18 +11,18 @@ int main (int argc, char *argv[]){
 		exit(EXIT_FAILURE);
 	}
 
-	struct arg_t *arg = AP_get(head, 1);
-	if(arg == NULL) {
+	struct arg_t *arg1 = AP_get(head, 1);
+	if(arg1 == NULL) {
 		fprintf(stderr, "Error: element out of bounds\n");
 		exit(EXIT_FAILURE);
 	}
-	struct arg_t *arg2 = AP_get(head, 0);
+	struct arg_t *arg0 = AP_get(head, 0);
 
-	printf("arg = %s\n", arg->arg);
-	printf("arg2 = %s\n", arg2->arg);
+	printf("arg = %s\n", arg1->arg);
+	printf("arg2 = %s\n", arg0->arg);
 
-	if(AP_has_flag(arg2, "-h", NULL)) {
-		printf("arg %s, has flag!\n", arg2->arg);
+	if(AP_has_flag(arg1, "-h", "--help")) {
+		printf("arg %s, has flag!\n", arg1->arg);
 	}
 
 	AP_free(head);
