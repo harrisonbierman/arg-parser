@@ -5,26 +5,28 @@
 
 #define MAX_FLAGS 16
 
-struct arg_t{
+struct ap_arg{
 
-	char *arg;
-	struct arg_t *next;
+	char *str;
+	struct ap_arg *next;
 
 	int flagc;
 	char *flagv[MAX_FLAGS + 1]; // room for NULL terminate
 };
 
 
-int AP_parse(int tokc, char *tokv[], struct arg_t **out_head); // use AP_free()
+int AP_parse(int tokc, char *tokv[], struct ap_arg **out_head); // use AP_free()
 
-void AP_free(struct arg_t *head);
+void AP_free(struct ap_arg *head);
 
 #define AP_FOREACH(node, head) \
-	for (struct arg_t *node = (head); node != NULL; node = node->next)
+	for (struct ap_arg *node = (head); node != NULL; node = node->next)
 
 // do not need to free pointer taken care of by AP_free
-struct arg_t* AP_get(struct arg_t *head, size_t element);
+struct ap_arg* AP_get(struct ap_arg *head, size_t element);
 
-int AP_has_flag(struct arg_t *arg, char *flag_short, char *flag_long);
+int AP_has_flag(struct ap_arg *arg, char *flag_short, char *flag_long);
+
+size_t AP_len(struct ap_arg *head);
 
 #endif

@@ -7,24 +7,24 @@
 #include <stdio.h>
 #include <string.h>
 
-int AP_parse(int tokc, char *tokv[], struct arg_t **out_head) {
+int AP_parse(int tokc, char *tokv[], struct ap_arg **out_head) {
 	int error = 0;
 
 	// I need to remember that you can initiate
 	// pointers as NULL if you don't want to use
 	// them yet
-	struct arg_t *head = NULL, *tail = NULL;
+	struct ap_arg *head = NULL, *tail = NULL;
 
 	// each argument
 	for (int i = 0; i < tokc;) {
 
 		// calloc will zero out allocation 
-		struct arg_t *node = calloc(1, sizeof(struct arg_t));
+		struct ap_arg *node = calloc(1, sizeof(struct ap_arg));
 
 		node->next = NULL; // terminate by default
 
 		// regular argument
-		node->arg = tokv[i];	
+		node->str = tokv[i];	
 
 		i++; // move to next token
 
@@ -53,16 +53,16 @@ int AP_parse(int tokc, char *tokv[], struct arg_t **out_head) {
 	return(error); // use AP_free();
 }
 
-void AP_free(struct arg_t *head) {
-	struct arg_t *curr = head;
+void AP_free(struct ap_arg *head) {
+	struct ap_arg *curr = head;
 	while(curr){
-		struct arg_t *next = curr->next;
+		struct ap_arg *next = curr->next;
 		free(curr);
 		curr = next;
 	}
 }
 
-struct arg_t* AP_get(struct arg_t *head, size_t element) {
+struct ap_arg* AP_get(struct ap_arg *head, size_t element) {
 	size_t i = 0;
 	AP_FOREACH(curr, head) {
 		if(i == element) 
@@ -72,7 +72,7 @@ struct arg_t* AP_get(struct arg_t *head, size_t element) {
 	return NULL;
 }
 
-int AP_has_flag(struct arg_t *arg, char *flag_short, char *flag_long) {
+int AP_has_flag(struct ap_arg *arg, char *flag_short, char *flag_long) {
 
 	// if inside loop means arg has flags
 	for(int i = 0; i < arg->flagc; i++) {
@@ -95,13 +95,21 @@ int AP_has_flag(struct arg_t *arg, char *flag_short, char *flag_long) {
 	return 0;
 }
 
+size_t AP_len(struct ap_arg *head) {
+	size_t count = 0;
+	AP_FOREACH(cur, head) {
+		count++;
+	}
+	return count;
+}
+
 
 /**
  * notes:
  *
  * API functions I want 
  *
- * struct arg_t ap = AP_new(argc, &argv);
+ * struct ap_arg ap = AP_new(argc, &argv);
  *
  *
  *

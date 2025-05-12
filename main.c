@@ -4,25 +4,25 @@
 
 int main (int argc, char *argv[]){
 
-	struct arg_t *head = NULL;
+	struct ap_arg *head = NULL;
 	int rc = AP_parse(argc, argv, &head);
 	if(rc != 0) {
 		perror("Error: something when wrong");
 		exit(EXIT_FAILURE);
 	}
 
-	struct arg_t *arg1 = AP_get(head, 1);
+	struct ap_arg *arg1 = AP_get(head, 1);
 	if(arg1 == NULL) {
 		fprintf(stderr, "Error: element out of bounds\n");
 		exit(EXIT_FAILURE);
 	}
-	struct arg_t *arg0 = AP_get(head, 0);
+	struct ap_arg *arg0 = AP_get(head, 0);
 
-	printf("arg = %s\n", arg1->arg);
-	printf("arg2 = %s\n", arg0->arg);
+	printf("arg = %s\n", arg1->str);
+	printf("arg2 = %s\n", arg0->str);
 
 	if(AP_has_flag(arg1, "-h", "--help")) {
-		printf("arg %s, has flag!\n", arg1->arg);
+		printf("arg %s, has flag!\n", arg1->str);
 	}
 
 	AP_free(head);
